@@ -1,0 +1,11 @@
+k <- read.table("power.txt",sep = ";")
+lam <- subset(k,V1=="1/2/2007")
+kam <- subset(k,V1=="2/2/2007")
+jose <- rbind(lam,kam)
+colnames(jose) <- c("Date","Time","Global active power","Global reactive power","Voltage","Global intensity","Sub metering 1","Sub metering 2","Sub metering 3")
+rownames(jose) <- c(1:2880)
+
+png(filename = "plot1.png",height = 480,width = 480,bg="transparent")
+with(jose,hist(as.numeric(as.character(jose$`Global active power`)),col = "red"))
+title(main = "Global Active Power",xlab = "Global Active Power(Kilowatt)")
+dev.off()

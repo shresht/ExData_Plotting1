@@ -1,0 +1,15 @@
+
+k <- read.table("power.txt",sep = ";")
+lam <- subset(k,V1=="1/2/2007")
+kam <- subset(k,V1=="2/2/2007")
+jose <- rbind(lam,kam)
+colnames(jose) <- c("Date","Time","Global active power","Global reactive power","Voltage","Global intensity","Sub metering 1","Sub metering 2","Sub metering 3")
+rownames(jose) <- c(1:2880)
+
+jose$Date <- as.Date(jose$Date,format="%d/%m/%Y")
+jose$datetime <- as.POSIXct(paste(jose$Date,jose$Time), format="%Y-%m-%d %H:%M:%S")
+plot(jose$datetime,jose$`Global active power`,type = "n")
+png(filename = "plot2.png",height = 480,width = 480,bg="transparent")
+plot(jose$datetime,jose$`Global active power`,type="n")
+lines(jose$datetime,jose$`Global active power`)
+dev.off()
